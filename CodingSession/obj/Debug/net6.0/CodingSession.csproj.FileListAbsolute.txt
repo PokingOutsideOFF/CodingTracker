@@ -1,0 +1,12 @@
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\bin\Debug\net6.0\CodingSession.deps.json
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\bin\Debug\net6.0\CodingSession.dll
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\bin\Debug\net6.0\CodingSession.pdb
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\CodingSession.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\CodingSession.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\CodingSession.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\CodingSession.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\CodingSession.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\CodingSession.dll
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\refint\CodingSession.dll
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\CodingSession.pdb
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingSession\obj\Debug\net6.0\ref\CodingSession.dll
