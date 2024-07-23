@@ -152,6 +152,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingSession\\CodingSession.csproj": {
+                "projectPath": "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingSession\\CodingSession.csproj"
+              },
               "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingTrackerDatabaseLibrary\\CodingTrackerDatabaseLibrary.csproj": {
                 "projectPath": "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingTrackerDatabaseLibrary\\CodingTrackerDatabaseLibrary.csproj"
               }

@@ -26,7 +26,7 @@
             get { return endTime;  }
             set
             {
-                if(endTime < startTime)
+                if(value < startTime)
                 {
                     throw new ArgumentException("End time cannot be before start");
 

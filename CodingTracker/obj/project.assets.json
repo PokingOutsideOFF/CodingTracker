@@ -1108,6 +1108,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "CodingSession >= 1.0.0",
       "CodingTrackerDatabaseLibrary >= 1.0.0",
       "Spectre.Console >= 0.49.1",
       "System.Configuration.ConfigurationManager >= 8.0.0"
@@ -1140,6 +1141,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingSession\\CodingSession.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingSession\\CodingSession.csproj"
+            },
             "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingTrackerDatabaseLibrary\\CodingTrackerDatabaseLibrary.csproj": {
               "projectPath": "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingTrackerDatabaseLibrary\\CodingTrackerDatabaseLibrary.csproj"
             }

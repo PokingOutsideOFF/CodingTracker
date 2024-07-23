@@ -19,7 +19,7 @@ namespace CodingTrackerDatabaseLibrary
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     startTime TEXT NOT NULL,    
                     endTime TEXT NOT NULL,
-                    duration TEXT NOT NULL;";
+                    duration TEXT NOT NULL);";
 
                 connection.Execute(createTableQuery);
             }
@@ -44,13 +44,15 @@ namespace CodingTrackerDatabaseLibrary
             var userInput = new UserInput();
             using(var connection = new SQLiteConnection(databseConnection))
             {
-                var sql = "INSERT INTO codeLog VALUES(@startTime, @endTime, @duration)";
+                var sql = "INSERT INTO codeLog(startTime, endTime, duration)  VALUES(@StartTime, @EndTime, @Duration)";
                 var session = new CodingSession
                 {
                     StartTime = userInput.GetTime(true),
                     EndTime = userInput.GetTime(false)
                 };
+                connection.Execute(sql,new { StartTime = session.StartTime, Endtime = session.EndTime, Duration = session.Duration });
             }
+            Console.WriteLine("Row inserted");
         }
 
         public void DeleteRecord()
