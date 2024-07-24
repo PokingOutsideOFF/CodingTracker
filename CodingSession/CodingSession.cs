@@ -4,10 +4,15 @@
     {
         private DateTime startTime;
         private DateTime endTime;
+        private int id;
         public int Id { get
             {
-                return this.Id;
-            }  
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
         public DateTime StartTime
         {
