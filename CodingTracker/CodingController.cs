@@ -1,7 +1,6 @@
 ﻿using Spectre.Console;
 using CodingTrackerDatabaseLibrary;
 using CodingSessionLibrary;
-using System.Data.Entity.Migrations.Model;
 
 namespace CodingTracker
 {
@@ -12,21 +11,22 @@ namespace CodingTracker
             var input = new UserInput();
             while (true)
             {
-                Console.WriteLine("\nMAIN MENU");
-                Console.WriteLine("\nWhat would you like to do\n");
-                Console.WriteLine("Type 0 to Close Application");
-                Console.WriteLine("Type 1 to View All Records");
-                Console.WriteLine("Type 2 to Insert Record");
-                Console.WriteLine("Type 3 to Delete Record");
-                Console.WriteLine("Type 4 to Update Record");
-                Console.WriteLine("Type 5 to Generate Report");
-                Console.WriteLine("----------------------------\n");
-                Console.Write("Enter choice: ");
+                Console.Clear();
+                string choice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("\n\rMAIN MENU")
+                    .PageSize(10)
+                    .AddChoices(new[]
+                    {
+                        "1. Close Application", "2. View All Records", "3. Insert Record",
+                        "4. Delete Record", "5. Update Record"
+                    }));
+            
+                int opt = int.Parse(choice.Substring(0,1));
+                DatabaseOperation(opt);
+                if (opt == 1) return;
+                Console.ReadLine();
 
-                int choice = input.GetIntValue();
-
-                DatabaseOperation(choice);
-                if (choice == 0) return;
             }
         }
 
@@ -36,23 +36,20 @@ namespace CodingTracker
             db.CreateTable();
             switch (choice)
             {
-                case 0:
-                    Console.WriteLine("Exiting...........\n");
-                    return;
                 case 1:
+                    Console.WriteLine("\nExiting...........\n");
+                    return;
+                case 2:
                     db.ViewTable();
                     break;
-                case 2:
+                case 3:
                     db.InsertRecord();
                     break;
-                case 3:
+                case 4:
                     db.DeleteRecord();
                     break;
-                case 4:
+                case 5:
                     db.UpdateRecord();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice\n");
                     break;
             }
         }

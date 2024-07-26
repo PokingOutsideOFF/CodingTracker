@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QfT6vB2V1AzDBqtUBDRRYuatzImiY5nOoZ2++BFrBek4a2gnThFwZWgtovIgSbFAltJlUNZem17VJ4VaBFSvQg==",
+  "dgSpecHash": "/lDVK3O1mYBAqtAiwFbfJMXaCUsdsZ1TJi2IisEFyTvHMVopRD75jTofq8STrlhJS4YuoiiN2nff2/nR0uDiWA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingTrackerDatabaseLibrary\\CodingTrackerDatabaseLibrary.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\Lenovo\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\stub.system.data.sqlite.core.netstandard\\1.0.118\\stub.system.data.sqlite.core.netstandard.1.0.118.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\system.codedom\\4.7.0\\system.codedom.4.7.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",

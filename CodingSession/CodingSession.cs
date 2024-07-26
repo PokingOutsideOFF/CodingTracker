@@ -5,6 +5,7 @@
         private DateTime startTime;
         private DateTime endTime;
         private int id;
+        string codingGoal;
         public int Id { get
             {
                 return id;
@@ -38,6 +39,12 @@
                 }
                 endTime = value;
             }
+        }
+
+        public string CodingGoal
+        {
+            get { return codingGoal; }
+            set { codingGoal = value; }
         }
 
         public TimeSpan Duration

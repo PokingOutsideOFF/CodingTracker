@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data.SQLite;
 using CodingSessionLibrary;
+using Spectre.Console;
 using Dapper;
 
 namespace CodingTrackerDatabaseLibrary
@@ -27,16 +28,27 @@ namespace CodingTrackerDatabaseLibrary
 
         public void ViewTable()
         {
-            using(var connection = new SQLiteConnection(databseConnection))
+            var table = new Table();
+            table.AddColumn("ID");
+            table.AddColumn("Start Time");
+            table.AddColumn("End Time");
+            table.AddColumn("Duration");
+
+            using (var connection = new SQLiteConnection(databseConnection))
             {
                 var sql = "SELECT * FROM codeLog";
                 var codingSession = connection.Query<CodingSession>(sql);
-                Console.WriteLine("ID\t\tStart Time\t\tEnd Time\tDuration");
+                //Console.WriteLine("ID\t\tStart Time\t\tEnd Time\tDuration");
                 foreach(var session in codingSession)
                 {
-                    Console.WriteLine($"{session.Id}\t{session.StartTime}\t{session.EndTime}\t{session.Duration.Days} days {session.Duration.Hours:D2}:{session.Duration.Minutes:D2}");
+                    table.AddRow(
+                        session.Id.ToString(),
+                        session.StartTime.ToString(),
+                        session.EndTime.ToString(),
+                        $"{session.Duration.Days} days {session.Duration.Hours:D2}:{session.Duration.Minutes:D2} hours");
                 }
             } 
+            AnsiConsole.Write(table);
         }
 
         public void InsertRecord()
@@ -49,16 +61,19 @@ namespace CodingTrackerDatabaseLibrary
                 {
                     Id = 1,
                     StartTime = userInput.GetTime(true),
+                    CodingGoal = userInput.GetGoal();
                     EndTime = userInput.GetTime(false)
                 };
                 connection.Execute(sql, session);
             }
             Console.WriteLine("Row inserted\n");
+            ViewTable();
         }
 
         public void DeleteRecord()
         {
             var userInput = new UserInput();
+            ViewTable();
             using(var connection = new SQLiteConnection(databseConnection))
             {
                 var sql = "DELETE FROM codeLog WHERE id = @Id";
@@ -66,18 +81,20 @@ namespace CodingTrackerDatabaseLibrary
                 int id = userInput.GetIntValue();
                 if (!CheckIdExists(id))
                 {
-                    Console.WriteLine("ID doesnt exists. Returning to Main Menu.");
+                    AnsiConsole.Markup("[red]ID doesnt exists. Returning to Main Menu.[/]\n");
+                    Thread.Sleep(1000);
                     return;
                 }
                 connection.Execute(sql, new { Id = id });
-                Console.WriteLine("Row deleted\n");
             }
+            Console.WriteLine("Row deleted\n");
+            ViewTable();
         }
 
         public void UpdateRecord()
         {
             var userInput = new UserInput();
-            Console.WriteLine("What do you want to update?");
+            Console.WriteLine("\nWhat do you want to update?");
             Console.WriteLine("1. Start Time");
             Console.WriteLine("2. End Time");
             Console.WriteLine("3. Both");
@@ -85,7 +102,8 @@ namespace CodingTrackerDatabaseLibrary
             int choice = userInput.GetIntValue();
             if(choice > 3)
             {
-                Console.WriteLine("Invalid Option. Returning to Main Menu");
+                AnsiConsole.Markup("[red]Invalid Option. Returning to Main Menu[/]\n");
+                Thread.Sleep(1000);
                 return;
             }
             using (var connection = new SQLiteConnection(databseConnection))
@@ -94,7 +112,8 @@ namespace CodingTrackerDatabaseLibrary
                 int id = userInput.GetIntValue();
                 if (!CheckIdExists(id))
                 {
-                    Console.WriteLine("ID doesnt exists. Returning to Main Menu.");
+                    AnsiConsole.Markup("[red]ID doesnt exists. Returning to Main Menu.[/]\n");
+                    Thread.Sleep(1000);
                     return ;
                 }
                 if(choice == 1)

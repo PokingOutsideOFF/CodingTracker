@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics;
+
 namespace CodingSessionLibrary
 {
     public class UserInput
@@ -32,6 +34,15 @@ namespace CodingSessionLibrary
             }
         }
 
+        public string GetGoal()
+        {
+            Console.Write("Enter coding goal: ");
+            string goal = Console.ReadLine();
+            Console.WriteLine("Starting Coding Session.......");
+            Stopwatch sw = Stopwatch.StartNew();
+            Console.WriteLine(sw);
+            return goal;
+        }
         
     }
 }
