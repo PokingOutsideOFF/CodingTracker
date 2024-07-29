@@ -96,6 +96,18 @@ namespace CodingSessionLibrary
             ));
             return int.Parse(choice.Substring(0,1));
         }
-        
+
+        public int FilterSessionChoice()
+        {
+            string choice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title("Filter Choices:")
+                .PageSize(5)
+                .AddChoices(new[]
+                {
+                    "1. Days", "2. Weeks", "3. Months","4. Years"
+                }));
+            return int.Parse(choice.Substring(0, 1));
+        }
     }
 }

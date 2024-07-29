@@ -94,5 +94,44 @@ namespace CodingTrackerDatabaseLibrary
             }
             AnsiConsole.Write(table);
         }
+
+        public void FilterByWeek()
+        {
+            using(var connection = new SQLiteConnection(databseConnection))
+            {
+                string query = @"
+                    SELECT strftime('%w', startTime) AS day_of_week,
+                    CASE strftime('%w', startTime)
+                        WHEN '0' THEN 'SUNDAY'
+                        WHEN '1' THEN 'MONDAY'
+                        WHEN '2' THEN 'TUESDAY'
+                        WHEN '3' THEN 'WEDNESDAY'
+                        WHEN '4' THEN 'THURSDAY'
+                        WHEN '5' THEN 'FRIDAY'
+                        WHEN '6' THEN 'SATURDAY'
+                    END as day_name,
+                    COUNT(*) AS session_count
+                    FROM codeSession
+                    GROUP BY day_of_week
+                    ORDER BY day_of_week";
+                var result = connection.Query(query).AsList();
+
+
+                var table = new Table();
+                table.AddColumn("Day of the Week");
+                table.AddColumn("No. of Sessions");
+                foreach (var row in result)
+                {
+                    string day_name = row.day_name;
+                    long session_count = row.session_count;
+                    table.AddRow(
+                        day_name,
+                        session_count.ToString());   
+                }
+                AnsiConsole.Write(table);
+            }
+        }
+
+        public void Filter() { }
     }
 }

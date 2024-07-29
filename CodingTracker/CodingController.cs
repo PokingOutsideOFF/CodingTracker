@@ -19,7 +19,7 @@ namespace CodingTracker
                     .AddChoices(new[]
                     {
                         "1. Close Application", "2. Start Session", "3. View Session Records", "4. View Goal Records", "5. Insert Coding Goal",
-                        "6. Delete Coding Goal", "7. Update Coding Goals", "8. Generate Reports"
+                        "6. Delete Coding Goal", "7. Update Coding Goals", "8. Filter Sessions", "9. Generate Reports"
                     }));
             
                 int opt = int.Parse(choice.Substring(0,1));
@@ -62,6 +62,9 @@ namespace CodingTracker
                     goalDB.UpdateGoalRecord();
                     break;
                 case 8:
+                    FilterSessions(sessionDB);
+                    break;
+                case 9:
                     GenerateReports();
                     break;
             }
@@ -70,6 +73,19 @@ namespace CodingTracker
         void GenerateReports()
         {
             Console.WriteLine();
+        }
+
+        public void FilterSessions(SessionDatabase sessionDB)
+        {
+            var userInput = new UserInput();
+            int choice = userInput.FilterSessionChoice();
+            switch (choice)
+            {
+                case 1:
+                    sessionDB.FilterByWeek();
+                    break;
+
+            }
         }
 
     }

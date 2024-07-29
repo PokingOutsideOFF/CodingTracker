@@ -120,13 +120,7 @@ namespace CodingTrackerDatabaseLibrary
                 Console.Write("Enter id: ");
                 int id = userInput.GetIntValue();
 
-
-                if (!CheckIdExists(id))
-                {
-                    AnsiConsole.Markup("[red]ID doesnt exists. Returning to Main Menu.[/]\n");
-                    Thread.Sleep(1000);
-                    return;
-                }
+                
                 try
                 {
                     if(choice == 1)
