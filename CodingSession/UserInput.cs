@@ -81,6 +81,21 @@ namespace CodingSessionLibrary
             var end = DateTime.Now; 
             return (start, end);
         }
+
+        public int UpdateGoalsRecordChoice()
+        {
+            Console.Clear();
+            string choice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title("Update Choices:")
+                .PageSize(10)
+                .AddChoices(new[]
+                {
+                    "1. Coding Task", "2. Coding Goal", "3. Start Date", "4. End Date", "5. Both Dates"
+                }
+            ));
+            return int.Parse(choice.Substring(0,1));
+        }
         
     }
 }

@@ -93,7 +93,6 @@ namespace CodingTrackerDatabaseLibrary
                     $"{session.Duration.Days} days {session.Duration.Hours:D2}:{session.Duration.Minutes:D2} hours");
             }
             AnsiConsole.Write(table);
-            AnsiConsole.Markup("[blue]Press enter key to return to menu[/]");
         }
     }
 }

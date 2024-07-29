@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.ComponentModel.Design;
+using System.Configuration;
 using System.Data.SQLite;
 using CodingGoalLibrary;
 using CodingSessionLibrary;
@@ -101,16 +102,13 @@ namespace CodingTrackerDatabaseLibrary
         public void UpdateGoalRecord()
         {
             var userInput = new UserInput();
-        
-            Console.WriteLine("\nWhat do you want to update?");
-            Console.WriteLine("1. Coding Goal");
-            Console.WriteLine("2. Start Date");
-            Console.WriteLine("3. End Date");
-            Console.WriteLine("4. Both");
-            Console.Write("Enter choice: ");
+            int choice = userInput.UpdateGoalsRecordChoice();
 
-            int choice = userInput.GetIntValue();
-            if (choice > 3)
+            var goals = ViewGoalTable();
+            DisplayGoalTable(goals);
+
+            
+            if (choice > 5)
             {
                 AnsiConsole.Markup("[red]Invalid Option. Returning to Main Menu[/]\n");
                 Thread.Sleep(1000);
@@ -131,7 +129,25 @@ namespace CodingTrackerDatabaseLibrary
                 }
                 try
                 {
-                    if (choice == 2) {
+                    if(choice == 1)
+                    {
+                        string sql = "UPDATE codeGoal SET codingTask = @CodingTask WHERE id = @Id";
+                        var session = new CodingGoals()
+                        {
+                            CodingTask = userInput.GetTask()
+                        };
+                        connection.Execute(sql, new { CodingTask = session.CodingTask, Id = id });
+                    }
+                    else if (choice == 2)
+                    {
+                        string sql = "UPDATE codeGoal SET codingTask = @CodingGoal WHERE id = @Id";
+                        var session = new CodingGoals()
+                        {
+                            CodingGoal = userInput.GetGoal()
+                        };
+                        connection.Execute(sql, new { CodingTask = session.CodingGoal, Id = id });
+                    }
+                    else if (choice == 3) {
 
                         string sql = "UPDATE codeGoal SET startDate = @StartDate WHERE id = @Id";
                         var session = new CodingGoals()
@@ -141,16 +157,17 @@ namespace CodingTrackerDatabaseLibrary
                         connection.Execute(sql, new { StartDate = session.StartDate, Id = id });
 
                     }
-                    else if (choice == 3)
+                    else if (choice == 4)
                     {
                         string sql = "UPDATE codeGoal SET endDate = @EndDate WHERE id = @Id";
                         var session = new CodingGoals()
                         {
+                            StartDate = DateTime.Now,
                             EndDate = userInput.GetTime(false),
                         };
                         connection.Execute(sql, new { EndDate = session.EndDate, Id = id });
                     }
-                    else if (choice == 4)
+                    else if (choice == 5)
                     {
                         string sql = "UPDATE codeGoal SET startDate=@StartDate AND endDate = @EndDate WHERE id = @Id";
                         var session = new CodingGoals()
@@ -166,10 +183,13 @@ namespace CodingTrackerDatabaseLibrary
                 }
                 catch(Exception ex)
                 {
-                    AnsiConsole.Markup($"\n[red]{ex.Message}");
+                    AnsiConsole.Markup($"\n[red]{ex.Message}[/]\n");
                 }
+                goals = ViewGoalTable();
+                DisplayGoalTable(goals);
+
             }
-            
+
         }
 
         public bool CheckIdExists(int id)

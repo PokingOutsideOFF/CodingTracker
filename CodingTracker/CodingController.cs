@@ -19,7 +19,7 @@ namespace CodingTracker
                     .AddChoices(new[]
                     {
                         "1. Close Application", "2. Start Session", "3. View Session Records", "4. View Goal Records", "5. Insert Coding Goal",
-                        "6. Delete Coding Goal", "7. Update Coding Goals"
+                        "6. Delete Coding Goal", "7. Update Coding Goals", "8. Generate Reports"
                     }));
             
                 int opt = int.Parse(choice.Substring(0,1));
@@ -61,7 +61,15 @@ namespace CodingTracker
                 case 7:
                     goalDB.UpdateGoalRecord();
                     break;
+                case 8:
+                    GenerateReports();
+                    break;
             }
+        }
+
+        void GenerateReports()
+        {
+            Console.WriteLine();
         }
 
     }
