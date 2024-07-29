@@ -15,3 +15,5 @@ C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrar
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.pdb
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.genruntimeconfig.cache
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\ref\CodingTrackerDatabaseLibrary.dll
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\bin\Debug\net6.0\CodingGoal.dll
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\bin\Debug\net6.0\CodingGoal.pdb

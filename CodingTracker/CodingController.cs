@@ -18,38 +18,48 @@ namespace CodingTracker
                     .PageSize(10)
                     .AddChoices(new[]
                     {
-                        "1. Close Application", "2. View All Records", "3. Insert Record",
-                        "4. Delete Record", "5. Update Record"
+                        "1. Close Application", "2. Start Session", "3. View Session Records", "4. View Goal Records", "5. Insert Coding Goal",
+                        "6. Delete Coding Goal", "7. Update Coding Goals"
                     }));
             
                 int opt = int.Parse(choice.Substring(0,1));
                 DatabaseOperation(opt);
                 if (opt == 1) return;
+                AnsiConsole.Markup("\n[blue]Press enter to continue....[/]");
                 Console.ReadLine();
-
             }
         }
 
         void DatabaseOperation(int choice)
         {
-            var db = new Database();
-            db.CreateTable();
+            var sessionDB = new SessionDatabase();
+            var goalDB = new GoalsDatabase();
+            sessionDB.CreateTable();
+            goalDB.CreateTable();
             switch (choice)
             {
                 case 1:
                     Console.WriteLine("\nExiting...........\n");
                     return;
                 case 2:
-                    db.ViewTable();
+                    sessionDB.InsertSession();
                     break;
                 case 3:
-                    db.InsertRecord();
+                    var sessions = sessionDB.ViewSessionsTable();
+                    sessionDB.DisplaySessionTable(sessions);
                     break;
                 case 4:
-                    db.DeleteRecord();
+                    var goals = goalDB.ViewGoalTable();
+                    goalDB.DisplayGoalTable(goals);
                     break;
                 case 5:
-                    db.UpdateRecord();
+                    goalDB.InsertGoalRecord();
+                    break;
+                case 6:
+                    goalDB.DeleteGoalRecord();
+                    break;
+                case 7:
+                    goalDB.UpdateGoalRecord();
                     break;
             }
         }

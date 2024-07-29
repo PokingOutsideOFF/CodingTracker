@@ -329,9 +329,22 @@
           }
         }
       },
+      "CodingGoal/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/CodingGoal.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CodingGoal.dll": {}
+        }
+      },
       "CodingSession/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Spectre.Console": "0.49.1"
+        },
         "compile": {
           "bin/placeholder/CodingSession.dll": {}
         },
@@ -343,6 +356,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "CodingGoal": "1.0.0",
           "CodingSession": "1.0.0",
           "Dapper": "2.1.35",
           "Spectre.Console": "0.49.1",
@@ -1095,6 +1109,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "CodingGoal/1.0.0": {
+      "type": "project",
+      "path": "../CodingGoal/CodingGoal.csproj",
+      "msbuildProject": "../CodingGoal/CodingGoal.csproj"
     },
     "CodingSession/1.0.0": {
       "type": "project",

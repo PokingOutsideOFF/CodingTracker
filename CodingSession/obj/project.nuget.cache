@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Lzxur/tLNIBvNVP3W7C5+Sm5i8BFayJRcM4kaGSfrZJpv/CyCc8EQEv+sfxwHHvdy0n8uT/LEy5HEBEgJp5bng==",
+  "dgSpecHash": "ZsmJJJrAJRJLo9WnPN/NRiZZpYHFDGnkUWwBmCdf1rCv5/8KQ4bDNCDdsP+YBlYwIhUKaf8xDzNkCmcK5dJOXw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\CsharpProjects\\CodingTracker\\CodingSession\\CodingSession.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Lenovo\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
+  ],
   "logs": []
 }

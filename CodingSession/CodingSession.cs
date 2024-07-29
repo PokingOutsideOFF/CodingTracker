@@ -5,7 +5,7 @@
         private DateTime startTime;
         private DateTime endTime;
         private int id;
-        string codingGoal;
+        string? codingGoal;
         public int Id { get
             {
                 return id;
