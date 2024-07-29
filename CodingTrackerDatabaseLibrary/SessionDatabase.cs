@@ -175,5 +175,37 @@ namespace CodingTrackerDatabaseLibrary
                 AnsiConsole.Write(table);
             }
         }
+
+        public void FilterByYear()
+        {
+            using(var connection = new SQLiteConnection(databseConnection))
+            {
+                string query = @"
+                    SELECT strftime('%Y', startTime) AS year,
+                    COUNT(*) AS session_count
+                    FROM codeSession
+                    GROUP BY year
+                    ORDER BY year
+                    ";
+
+                var result = connection.Query(query).ToList();
+
+                var table = new Table();
+                table.AddColumn("Year");
+                table.AddColumn("No. of Sessions");
+
+                foreach (var row in result)
+                {
+                    string year = row.year;
+                    long session_count = row.session_count;
+         
+                    table.AddRow(
+                        year,
+                        session_count.ToString());
+                }
+
+                AnsiConsole.Write(table);
+            }
+        }
     }
 }

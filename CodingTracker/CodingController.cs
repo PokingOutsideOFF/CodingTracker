@@ -88,6 +88,9 @@ namespace CodingTracker
                 case 2:
                     sessionDB.FilterByMonths();
                     break;
+                case 3:
+                    sessionDB.FilterByYear();
+                    break;
             }
         }
 
