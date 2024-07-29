@@ -132,6 +132,48 @@ namespace CodingTrackerDatabaseLibrary
             }
         }
 
-        public void Filter() { }
+
+        public void FilterByMonths()
+        {
+            using(var connection = new SQLiteConnection(databseConnection))
+            {
+                string query = @"
+                    SELECT strftime('%m', startTime) AS month,
+                    CASE strftime('%m', startTime)
+                        WHEN '01' THEN 'JANUARY'
+                        WHEN '02' THEN 'FEBRUARY'
+                        WHEN '03' THEN 'MARCH'
+                        WHEN '04' THEN 'APRIL'
+                        WHEN '05' THEN 'MAY'
+                        WHEN '06' THEN 'JUNE'
+                        WHEN '07' THEN 'JULY'
+                        WHEN '08' THEN 'AUGUST'
+                        WHEN '09' THEN 'SEPTEMBER'
+                        WHEN '10' THEN 'OCTOBER'
+                        WHEN '11' THEN 'NOVEMBER'
+                        WHEN '12' THEN 'DECEMBER'
+                    END as month_name,
+                    COUNT(*) AS session_count
+                    FROM codeSession
+                    GROUP BY month
+                    ORDER BY month";
+
+                var result = connection.Query(query).AsList();
+
+                var table = new Table();
+                table.AddColumn("Month");
+                table.AddColumn("No. of Sessions");
+
+                foreach (var row in result)
+                {
+                    string month_name = row.month_name;
+                    long session_count = row.session_count;
+                    table.AddRow(
+                        month_name,
+                        session_count.ToString());
+                }
+                AnsiConsole.Write(table);
+            }
+        }
     }
 }

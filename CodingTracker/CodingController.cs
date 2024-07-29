@@ -25,8 +25,7 @@ namespace CodingTracker
                 int opt = int.Parse(choice.Substring(0,1));
                 DatabaseOperation(opt);
                 if (opt == 1) return;
-                AnsiConsole.Markup("\n[blue]Press enter to continue....[/]");
-                Console.ReadLine();
+              
             }
         }
 
@@ -68,6 +67,8 @@ namespace CodingTracker
                     GenerateReports();
                     break;
             }
+            AnsiConsole.Markup("\n[blue]Press enter to continue....[/]");
+            Console.ReadLine();
         }
 
         void GenerateReports()
@@ -84,7 +85,9 @@ namespace CodingTracker
                 case 1:
                     sessionDB.FilterByWeek();
                     break;
-
+                case 2:
+                    sessionDB.FilterByMonths();
+                    break;
             }
         }
 

@@ -105,7 +105,7 @@ namespace CodingSessionLibrary
                 .PageSize(5)
                 .AddChoices(new[]
                 {
-                    "1. Days", "2. Weeks", "3. Months","4. Years"
+                    "1. Days", "2. Months", "3. Years"
                 }));
             return int.Parse(choice.Substring(0, 1));
         }
