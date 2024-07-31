@@ -10,11 +10,11 @@ namespace CodingTrackerDatabaseLibrary
 {
     public class SessionDatabase
     {
-        private string? databseConnection = ConfigurationManager.AppSettings.Get("SessionDBConnection");
+        private string? sessionDatabaseConnection = ConfigurationManager.AppSettings.Get("SessionDBConnection");
 
         public void CreateTable()
         {
-            using (var connection = new SQLiteConnection(databseConnection))
+            using (var connection = new SQLiteConnection(sessionDatabaseConnection))
             {
                 connection.Open();
                 string createCodeSessionTableQuery = @"
@@ -31,7 +31,7 @@ namespace CodingTrackerDatabaseLibrary
 
         public List<CodingSession> ViewSessionsTable()
         {
-            using (var connection = new SQLiteConnection(databseConnection))
+            using (var connection = new SQLiteConnection(sessionDatabaseConnection))
             {
                 var sql = "SELECT * FROM codeSession";
                 return connection.Query<CodingSession>(sql).AsList();
@@ -43,7 +43,7 @@ namespace CodingTrackerDatabaseLibrary
             var userInput = new UserInput();
             try
             {
-                using (var connection = new SQLiteConnection(databseConnection))
+                using (var connection = new SQLiteConnection(sessionDatabaseConnection))
                 {
                     var sql = "INSERT INTO codeSession(codingGoal, startTime, endTime, duration)  VALUES(@CodingGoal, @StartTime, @EndTime, @Duration);";
                     var goal = userInput.GetTask();
@@ -79,25 +79,27 @@ namespace CodingTrackerDatabaseLibrary
 
             var table = new Table();
             table.AddColumn("ID");
-            table.AddColumn("Coding Goal");
+            table.AddColumn("Coding Task");
             table.AddColumn("Start Time");
             table.AddColumn("End Time");
             table.AddColumn("Duration");
             foreach (var session in sessions)
             {
+                int totalHours = (int)session.Duration.TotalHours; // Total hours as an integer
+                int minutes = session.Duration.Minutes;
                 table.AddRow(
                     session.Id.ToString(),
                     session.CodingGoal,
                     session.StartTime.ToString(),
                     session.EndTime.ToString(),
-                    $"{session.Duration.Days} days {session.Duration.Hours:D2}:{session.Duration.Minutes:D2} hours");
+                    $"{totalHours:D2}:{minutes:D2} hours");
             }
             AnsiConsole.Write(table);
         }
 
         public void FilterByWeek()
         {
-            using(var connection = new SQLiteConnection(databseConnection))
+            using(var connection = new SQLiteConnection(sessionDatabaseConnection))
             {
                 string query = @"
                     SELECT strftime('%w', startTime) AS day_of_week,
@@ -135,7 +137,7 @@ namespace CodingTrackerDatabaseLibrary
 
         public void FilterByMonths()
         {
-            using(var connection = new SQLiteConnection(databseConnection))
+            using(var connection = new SQLiteConnection(sessionDatabaseConnection))
             {
                 string query = @"
                     SELECT strftime('%m', startTime) AS month,
@@ -178,7 +180,7 @@ namespace CodingTrackerDatabaseLibrary
 
         public void FilterByYear()
         {
-            using(var connection = new SQLiteConnection(databseConnection))
+            using(var connection = new SQLiteConnection(sessionDatabaseConnection))
             {
                 string query = @"
                     SELECT strftime('%Y', startTime) AS year,
@@ -206,6 +208,26 @@ namespace CodingTrackerDatabaseLibrary
 
                 AnsiConsole.Write(table);
             }
+        }
+
+        public void UpdateSessionRecord()
+        {
+            var userInput = new UserInput();
+            var sessions = ViewSessionsTable();
+            DisplaySessionTable(sessions);
+            Console.Write("Enter id: ");
+            int id = userInput.GetIntValue();
+
+            using(var connection = new SQLiteConnection(sessionDatabaseConnection))
+            {
+                connection.Open();
+                string query = "UPDATE codeSession SET codingGoal=@Task WHERE id = @Id";
+                string task = userInput.GetTask();
+                connection.Execute(query, new { Task = task, Id = id });
+            }
+
+            sessions = ViewSessionsTable();
+            DisplaySessionTable(sessions);
         }
     }
 }

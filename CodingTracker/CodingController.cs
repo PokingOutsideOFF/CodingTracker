@@ -19,7 +19,7 @@ namespace CodingTracker
                     .AddChoices(new[]
                     {
                         "1. Close Application", "2. Start Session", "3. View Session Records", "4. View Goal Records", "5. Insert Coding Goal",
-                        "6. Delete Coding Goal", "7. Update Coding Goals", "8. Filter Sessions", "9. Generate Reports"
+                        "6. Delete Coding Goal", "7. Update Records", "8. Filter Sessions", "9. Generate Reports"
                     }));
             
                 int opt = int.Parse(choice.Substring(0,1));
@@ -58,22 +58,30 @@ namespace CodingTracker
                     goalDB.DeleteGoalRecord();
                     break;
                 case 7:
-                    goalDB.UpdateGoalRecord();
+                    string secondChoice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("\n\rUpdate Menu:")
+                    .PageSize(10)
+                    .AddChoices(new[]
+                    {
+                        "1. Update Session Records", "2. Update Goal Records"
+                    }));
+
+                    int opt = int.Parse(secondChoice.Substring(0, 1));
+                    if (opt == 1)
+                        sessionDB.UpdateSessionRecord();
+                    else
+                        goalDB.UpdateGoalRecord();
                     break;
                 case 8:
                     FilterSessions(sessionDB);
                     break;
                 case 9:
-                    GenerateReports();
+                    goalDB.ProgressReport();
                     break;
             }
             AnsiConsole.Markup("\n[blue]Press enter to continue....[/]");
             Console.ReadLine();
-        }
-
-        void GenerateReports()
-        {
-            Console.WriteLine();
         }
 
         public void FilterSessions(SessionDatabase sessionDB)

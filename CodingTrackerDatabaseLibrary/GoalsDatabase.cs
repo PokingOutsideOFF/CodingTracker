@@ -10,11 +10,12 @@ namespace CodingTrackerDatabaseLibrary
 {
     public class GoalsDatabase
     {
-        private string? databseConnection = ConfigurationManager.AppSettings.Get("GoalsDBConnection");
+        private string? goalDatabaseConnection = ConfigurationManager.AppSettings.Get("GoalsDBConnection");
+        private string? sessionDatabaseConnection = ConfigurationManager.AppSettings.Get("SessionDbConnection");
 
         public void CreateTable()
         {
-            using (var connection = new SQLiteConnection(databseConnection))
+            using (var connection = new SQLiteConnection(goalDatabaseConnection))
             {
                 connection.Open();
 
@@ -34,7 +35,7 @@ namespace CodingTrackerDatabaseLibrary
 
         public List<CodingGoals> ViewGoalTable()
         {
-            using (var connection = new SQLiteConnection(databseConnection))
+            using (var connection = new SQLiteConnection(goalDatabaseConnection))
             {
                 var sql = "SELECT * FROM codeGoal";
                 var query =  connection.Query<CodingGoals>(sql).AsList();
@@ -48,7 +49,7 @@ namespace CodingTrackerDatabaseLibrary
             try
             {
 
-                using (var connection = new SQLiteConnection(databseConnection))
+                using (var connection = new SQLiteConnection(goalDatabaseConnection))
                 {
                     var sql = "INSERT INTO codeGoal(codingTask, codingGoal, startDate, endDate)  VALUES(@CodingTask, @CodingGoal, @StartDate, @EndDate);";
                     var session = new CodingGoals()
@@ -79,7 +80,7 @@ namespace CodingTrackerDatabaseLibrary
             var goals = ViewGoalTable();
             DisplayGoalTable(goals);
            
-            using (var connection = new SQLiteConnection(databseConnection))
+            using (var connection = new SQLiteConnection(goalDatabaseConnection))
             {
                 var sql = "DELETE FROM codeGoal WHERE id = @Id";
                 Console.Write("\nEnter id to be deleted: ");
@@ -115,7 +116,7 @@ namespace CodingTrackerDatabaseLibrary
                 return;
             }
 
-            using (var connection = new SQLiteConnection(databseConnection))
+            using (var connection = new SQLiteConnection(goalDatabaseConnection))
             {
                 Console.Write("Enter id: ");
                 int id = userInput.GetIntValue();
@@ -188,7 +189,7 @@ namespace CodingTrackerDatabaseLibrary
 
         public bool CheckIdExists(int id)
         {
-            using (var connection = new SQLiteConnection(databseConnection))
+            using (var connection = new SQLiteConnection(goalDatabaseConnection))
             {
                 string sql = "SELECT COUNT(1) FROM codeGoal WHERE id= @Id";
                 int count = connection.ExecuteScalar<int>(sql, new { Id = id });
@@ -224,7 +225,23 @@ namespace CodingTrackerDatabaseLibrary
             AnsiConsole.Write(table);
      
         }
-    }
+        public void ProgressReport()
+        {
+            Console.WriteLine("Progress Report");
+            var userInput = new UserInput();
 
+            Console.WriteLine("Enter the coding task: ");
+            string task = userInput.GetTask();
+
+            using(var connection = new SQLiteConnection(sessionDatabaseConnection))
+            {
+                connection.Open();
+                string query = @"
+                        SELECT coding_task,
+                        SUM((strftime('%s', end_time
+                var records = ";
+            }
+        }
+    }
 }
 
