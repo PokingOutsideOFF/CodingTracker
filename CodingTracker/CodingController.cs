@@ -18,8 +18,8 @@ namespace CodingTracker
                     .PageSize(10)
                     .AddChoices(new[]
                     {
-                        "1. Close Application", "2. Start Session", "3. View Session Records", "4. View Goal Records", "5. Insert Coding Goal",
-                        "6. Delete Coding Goal", "7. Update Records", "8. Filter Sessions", "9. Generate Reports"
+                        "1. Close Application", "2. View Records", "3. Insert Records", "4. Delete Records", 
+                        "5. Update Records", "6. Filter Sessions", "7. Generate Reports"
                     }));
             
                 int opt = int.Parse(choice.Substring(0,1));
@@ -35,72 +35,79 @@ namespace CodingTracker
             var goalDB = new GoalsDatabase();
             sessionDB.CreateTable();
             goalDB.CreateTable();
+            var userInput = new UserInput();
+            int opt = 0;
             switch (choice)
             {
                 case 1:
                     Console.WriteLine("\nExiting...........\n");
                     return;
-                case 2:
-                    sessionDB.InsertSession();
-                    break;
-                case 3:
-                    var sessions = sessionDB.ViewSessionsTable();
-                    sessionDB.DisplaySessionTable(sessions);
-                    break;
-                case 4:
-                    var goals = goalDB.ViewGoalTable();
-                    goalDB.DisplayGoalTable(goals);
-                    break;
-                case 5:
-                    goalDB.InsertGoalRecord();
-                    break;
-                case 6:
-                    goalDB.DeleteGoalRecord();
-                    break;
-                case 7:
-                    string secondChoice = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                    .Title("\n\rUpdate Menu:")
-                    .PageSize(10)
-                    .AddChoices(new[]
-                    {
-                        "1. Update Session Records", "2. Update Goal Records"
-                    }));
 
-                    int opt = int.Parse(secondChoice.Substring(0, 1));
+                case 2:
+                    opt = userInput.ViewChoice();
+                    if (opt == 1)
+                    {
+                        var sessions = sessionDB.ViewSessionsTable();
+                        sessionDB.DisplaySessionTable(sessions);
+                    }
+                    else if (opt == 2)
+                    {
+                        var goals = goalDB.ViewGoalTable();
+                        goalDB.DisplayGoalTable(goals);
+                    }
+                    else
+                        return;
+
+                    break;
+
+                case 3:
+                    opt = userInput.InsertChoice();
+                    if (opt == 1)
+                        sessionDB.InsertSession();
+                    else if (opt == 2)
+                        goalDB.InsertGoalRecord();
+                    else
+                        return;
+                    break;
+
+                case 4:
+                    opt = userInput.DeleteChoice();
+                    if (opt == 1)
+                        sessionDB.DeleteSession();
+                    else if (opt == 2)
+                        goalDB.DeleteGoalRecord();
+                    else
+                        return;
+                    break;
+
+                case 5:
+                    opt = userInput.UpdateChoice();
                     if (opt == 1)
                         sessionDB.UpdateSessionRecord();
-                    else
+                    else if (opt == 2)
                         goalDB.UpdateGoalRecord();
+                    else
+                        return;
                     break;
-                case 8:
-                    FilterSessions(sessionDB);
+
+                case 6:
+                    opt = userInput.FilterSessionChoice();
+                    if (opt == 1)
+                        sessionDB.FilterByDay();
+                    else if (opt == 2)
+                        sessionDB.FilterByMonths();
+                    else if (opt == 3)
+                        sessionDB.FilterByYear();
+                    else
+                        return;
                     break;
-                case 9:
+
+                case 7:
                     goalDB.ProgressReport();
                     break;
             }
             AnsiConsole.Markup("\n[blue]Press enter to continue....[/]");
             Console.ReadLine();
         }
-
-        public void FilterSessions(SessionDatabase sessionDB)
-        {
-            var userInput = new UserInput();
-            int choice = userInput.FilterSessionChoice();
-            switch (choice)
-            {
-                case 1:
-                    sessionDB.FilterByWeek();
-                    break;
-                case 2:
-                    sessionDB.FilterByMonths();
-                    break;
-                case 3:
-                    sessionDB.FilterByYear();
-                    break;
-            }
-        }
-
     }
 }

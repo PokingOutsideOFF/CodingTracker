@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using Spectre.Console;
 
@@ -64,13 +65,14 @@ namespace CodingSessionLibrary
             }
         }
 
+        //Challenge 1 - Add the possibility of tracking the coding time via a stopwatch so the user can track the session as it happens.
         public (DateTime Start, DateTime End) GetSessionTime()
         {
             Stopwatch sw = new Stopwatch();
             var start = DateTime.Now;
             TimeSpan timeElapsed;
             Console.WriteLine("\nStarting Coding Session.......");
-            AnsiConsole.Markup("\r[blue]Press any key to stop timer...[/]\n");
+            AnsiConsole.Markup("\r[blue]Press any key to stop timer...[/]\n\n");
             sw.Start();
             while (!Console.KeyAvailable)
             {
@@ -80,6 +82,63 @@ namespace CodingSessionLibrary
             sw.Stop();
             var end = DateTime.Now; 
             return (start, end);
+        }
+
+        public int ViewChoice()
+        {
+            string viewChoice = AnsiConsole.Prompt(
+                        new SelectionPrompt<string>()
+                        .Title("\n\rView Menu:")
+                        .PageSize(3)
+                        .AddChoices(new[]
+                        {
+                            "1. View Session Records", "2. View Goals Records", "3. Back to Menu"
+                        }));
+
+            return int.Parse(viewChoice.Substring(0, 1));
+        }
+
+        public int InsertChoice()
+        {
+            string insertChoice = AnsiConsole.Prompt(
+                        new SelectionPrompt<string>()
+                        .Title("\n\rInsert Menu:")
+                        .PageSize(3)
+                        .AddChoices(new[]
+                        {
+                            "1. Insert Session / Start Session", "2. Insert Goal", "3. Back to Menu"
+                        }
+                        ));
+
+            return int.Parse(insertChoice.Substring(0, 1));
+        }
+
+        public int DeleteChoice()
+        {
+            string deleteChoice = AnsiConsole.Prompt(
+                        new SelectionPrompt<string>()
+                        .Title("\n\rDelete Menu: ")
+                        .PageSize(3)
+                        .AddChoices(new[]
+                        {
+                            "1. Delete Session", "2. Delete Goal", "3. Back to Menu"
+                        }));
+
+            return int.Parse(deleteChoice.Substring(0, 1));
+        }
+
+        public int UpdateChoice()
+        {
+            string updateChoice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("\n\rUpdate Menu:")
+                    .PageSize(10)
+                    .AddChoices(new[]
+                    {
+                        "1. Update Session Records", "2. Update Goal Records", "3. Back to Menu"
+                    }));
+
+            return int.Parse(updateChoice.Substring(0, 1));
         }
 
         public int UpdateGoalsRecordChoice()
@@ -105,7 +164,7 @@ namespace CodingSessionLibrary
                 .PageSize(5)
                 .AddChoices(new[]
                 {
-                    "1. Days", "2. Months", "3. Years"
+                    "1. Days", "2. Months", "3. Years", "4. Back to Menu"
                 }));
             return int.Parse(choice.Substring(0, 1));
         }

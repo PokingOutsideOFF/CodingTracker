@@ -1,7 +1,6 @@
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\bin\Debug\net6.0\CodingGoal.deps.json
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\bin\Debug\net6.0\CodingGoal.dll
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\bin\Debug\net6.0\CodingGoal.pdb
-C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\CodingGoal.csproj.AssemblyReference.cache
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\CodingGoal.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\CodingGoal.AssemblyInfoInputs.cache
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\CodingGoal.AssemblyInfo.cs
@@ -10,3 +9,4 @@ C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\refint\CodingGoal.dll
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\CodingGoal.pdb
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\ref\CodingGoal.dll
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingGoal\obj\Debug\net6.0\CodingGoal.csproj.AssemblyReference.cache

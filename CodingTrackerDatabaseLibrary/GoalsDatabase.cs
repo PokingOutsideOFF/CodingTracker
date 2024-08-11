@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Design;
 using System.Configuration;
 using System.Data.SQLite;
+using System.Globalization;
 using CodingGoalLibrary;
 using CodingSessionLibrary;
 using Dapper;
@@ -73,7 +74,6 @@ namespace CodingTrackerDatabaseLibrary
             }
         }
 
-
         public void DeleteGoalRecord()
         {
             var userInput = new UserInput();
@@ -120,7 +120,12 @@ namespace CodingTrackerDatabaseLibrary
             {
                 Console.Write("Enter id: ");
                 int id = userInput.GetIntValue();
-
+                if (!CheckIdExists(id))
+                {
+                    AnsiConsole.Markup("[red]ID doesnt exists. Returning to Main Menu.[/]\n");
+                    Thread.Sleep(1000);
+                    return;
+                }
                 
                 try
                 {
@@ -182,9 +187,7 @@ namespace CodingTrackerDatabaseLibrary
                 }
                 goals = ViewGoalTable();
                 DisplayGoalTable(goals);
-
             }
-
         }
 
         public bool CheckIdExists(int id)
@@ -195,7 +198,6 @@ namespace CodingTrackerDatabaseLibrary
                 int count = connection.ExecuteScalar<int>(sql, new { Id = id });
                 return count > 0;
             }
-
         }
 
         public void DisplayGoalTable(List<CodingGoals> goals)
@@ -225,22 +227,130 @@ namespace CodingTrackerDatabaseLibrary
             AnsiConsole.Write(table);
      
         }
+
+        //Challenge 4 - reate the ability to set coding goals and show how far the users are from reaching their goal,
+        //along with how many hours a day they would have to code to reach their goal.
         public void ProgressReport()
         {
             Console.WriteLine("Progress Report");
             var userInput = new UserInput();
-
-            Console.WriteLine("Enter the coding task: ");
             string task = userInput.GetTask();
+            string goal = "";
+            string dateExceeded;
+            double progressPercent;
+            double hours = 0;
+            double hoursPerDay = 0;
+
+            List<dynamic> sessionTimeSpentResult;
+            List<dynamic> sessionEndTimeResult;
+            List<dynamic> goalEnquiryResult;
 
             using(var connection = new SQLiteConnection(sessionDatabaseConnection))
-            {
-                connection.Open();
+            { 
                 string query = @"
-                        SELECT coding_task,
-                        SUM((strftime('%s', end_time
-                var records = ";
+                        SELECT codingGoal,
+                            SUM((strftime('%s', endTime) - strftime('%s', startTime))) AS total_hours
+                        FROM codeSession
+                        WHERE codingGoal = @Task
+                        GROUP BY codingGoal;";
+
+                sessionTimeSpentResult = connection.Query(query, new { Task = task }).AsList();
+                
+                if(sessionTimeSpentResult.Count == 0)
+                {
+                    Console.WriteLine("No sessions found");
+                    return;
+                }
+
+                string endTimeQuery = @"
+                            SELECT MAX(endTime) as last_date
+                            FROM codeSession
+                            WHERE codingGoal = @Task";
+                sessionEndTimeResult = connection.Query(endTimeQuery, new { Task = task }).AsList();
             }
+
+            using (var connection = new SQLiteConnection(goalDatabaseConnection))
+            {
+                string query = @"
+                        SELECT codingTask, codingGoal, endDate
+                        FROM codeGoal
+                        WHERE codingTask = @Task;";
+                goalEnquiryResult = connection.Query(query, new { Task = task }).AsList();
+
+                if(goalEnquiryResult.Count == 0)
+                {
+                    Console.WriteLine("No coding goals registered yet.");
+                    return;
+                }
+            }
+
+            DateTime sessionEndTime = DateTime.Now;
+            DateTime goalEndTime = DateTime.Now;
+
+            foreach(var row in sessionTimeSpentResult)
+            {
+                hours = row.total_hours / 3600.0;
+            }
+
+            foreach(var row in sessionEndTimeResult)
+            {
+                string s = row.last_date;
+                sessionEndTime = DateTime.Parse(s);
+            }
+
+            foreach (var row in goalEnquiryResult)
+            {
+                string s = row.endDate;
+                goalEndTime = DateTime.Parse(s);
+                goal = row.codingGoal;
+            }
+
+            dateExceeded = DateTime.Now > goalEndTime ? "yes" : "no";
+            if(dateExceeded == "no")
+            {
+                TimeSpan timeLeft = goalEndTime - DateTime.Now;
+
+                double daysLeft = timeLeft.TotalDays < 1 ? 1 : timeLeft.TotalDays;
+                hoursPerDay = (double.Parse(goal) - hours) / daysLeft;  
+            }
+
+            var table = new Table();
+            table.AddColumn("Coding Task");
+            table.AddColumn("Codign Goal (hours)");
+            table.AddColumn("Time Spent (hours)");
+            table.AddColumn("Progress");
+            table.AddColumn("End Date Exceeded?");
+            if(dateExceeded == "no")
+            {
+                table.AddColumn("Hours Per Day Required");
+            }
+            
+            progressPercent = (hours / double.Parse(goal)) * 100;
+            if(progressPercent >= 100.00)
+            {
+                progressPercent = 100.00;
+            }
+            if(dateExceeded == "yes")
+            {
+                table.AddRow(
+                        task,
+                        goal,
+                        hours.ToString("F2"),
+                        progressPercent.ToString("F2"),
+                        dateExceeded);
+            }
+            else
+            {
+                table.AddRow(
+                        task,
+                        goal,
+                        hours.ToString("F2"),
+                        progressPercent.ToString("F2"),
+                        dateExceeded,
+                        hoursPerDay.ToString("F2"));
+            }
+            
+            AnsiConsole.Write(table);
         }
     }
 }

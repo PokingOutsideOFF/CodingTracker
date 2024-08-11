@@ -57,7 +57,7 @@ namespace CodingTrackerDatabaseLibrary
                     };
                     connection.Execute(sql, session);
                 }
-                Console.WriteLine("\nRow inserted\n");
+                AnsiConsole.Markup("\n\n[blue]Row inserted[/]\n\n");
                 var sessions = ViewSessionsTable();
                 DisplaySessionTable(sessions);
                 Console.ReadLine();
@@ -68,9 +68,56 @@ namespace CodingTrackerDatabaseLibrary
             }
         }
 
+        public void DeleteSession()
+        {
+            var userInput = new UserInput();
+            var sessions = ViewSessionsTable();
+            DisplaySessionTable(sessions);
+
+            using (var connection = new SQLiteConnection(sessionDatabaseConnection))
+            {
+                var sql = "DELETE FROM codeSession WHERE id = @Id";
+                Console.Write("\nEnter id to be deleted: ");
+                int id = userInput.GetIntValue();
+
+                if (!CheckIdExists(id))
+                {
+                    AnsiConsole.Markup("[red]ID doesnt exists. Returning to Main Menu.[/]\n");
+                    Thread.Sleep(1000);
+                    return;
+                }
+
+                connection.Execute(sql, new { Id = id });
+            }
+            AnsiConsole.Markup("\n[red]Row deleted[/]\n");
+        }
+
+        public void UpdateSessionRecord()
+        {
+            var userInput = new UserInput();
+            var sessions = ViewSessionsTable();
+            DisplaySessionTable(sessions);
+            Console.Write("Enter id: ");
+            int id = userInput.GetIntValue();
+
+            using (var connection = new SQLiteConnection(sessionDatabaseConnection))
+            {
+                connection.Open();
+                string query = "UPDATE codeSession SET codingGoal=@Task WHERE id = @Id";
+                string task = userInput.GetTask();
+                connection.Execute(query, new { Task = task, Id = id });
+            }
+
+            AnsiConsole.Markup("\n[blue]Row updated[/]\n");
+
+
+            sessions = ViewSessionsTable();
+            DisplaySessionTable(sessions);
+        }
 
         public void DisplaySessionTable(List<CodingSession> sessions)
         {
+            Console.WriteLine("Your Sessions\n");
             if (sessions.Count == 0)
             {
                 AnsiConsole.Markup("[red]No records found[/]. Add by starting a session.");
@@ -97,7 +144,21 @@ namespace CodingTrackerDatabaseLibrary
             AnsiConsole.Write(table);
         }
 
-        public void FilterByWeek()
+        public bool CheckIdExists(int id)
+        {
+            using (var connection = new SQLiteConnection(sessionDatabaseConnection))
+            {
+                string sql = "SELECT COUNT(1) FROM codeSession WHERE id= @Id";
+                int count = connection.ExecuteScalar<int>(sql, new { Id = id });
+                return count > 0;
+            }
+
+        }
+
+        //Challenge 2 - Let the users filter their coding records per period
+        //(weeks, days, years) and/or order ascending or descending.
+
+        public void FilterByDay()
         {
             using(var connection = new SQLiteConnection(sessionDatabaseConnection))
             {
@@ -133,7 +194,6 @@ namespace CodingTrackerDatabaseLibrary
                 AnsiConsole.Write(table);
             }
         }
-
 
         public void FilterByMonths()
         {
@@ -210,24 +270,6 @@ namespace CodingTrackerDatabaseLibrary
             }
         }
 
-        public void UpdateSessionRecord()
-        {
-            var userInput = new UserInput();
-            var sessions = ViewSessionsTable();
-            DisplaySessionTable(sessions);
-            Console.Write("Enter id: ");
-            int id = userInput.GetIntValue();
-
-            using(var connection = new SQLiteConnection(sessionDatabaseConnection))
-            {
-                connection.Open();
-                string query = "UPDATE codeSession SET codingGoal=@Task WHERE id = @Id";
-                string task = userInput.GetTask();
-                connection.Execute(query, new { Task = task, Id = id });
-            }
-
-            sessions = ViewSessionsTable();
-            DisplaySessionTable(sessions);
-        }
+        
     }
 }

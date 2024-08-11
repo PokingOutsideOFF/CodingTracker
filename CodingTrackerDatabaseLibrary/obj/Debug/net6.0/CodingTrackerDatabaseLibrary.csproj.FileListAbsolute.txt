@@ -9,7 +9,6 @@ C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrar
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.AssemblyInfoInputs.cache
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.AssemblyInfo.cs
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.csproj.CoreCompileInputs.cache
-C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.csproj.CopyComplete
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.dll
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\refint\CodingTrackerDatabaseLibrary.dll
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.pdb
@@ -17,3 +16,4 @@ C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrar
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\ref\CodingTrackerDatabaseLibrary.dll
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\bin\Debug\net6.0\CodingGoal.dll
 C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\bin\Debug\net6.0\CodingGoal.pdb
+C:\Users\Lenovo\Desktop\CsharpProjects\CodingTracker\CodingTrackerDatabaseLibrary\obj\Debug\net6.0\CodingTrackerDatabaseLibrary.csproj.CopyComplete
