@@ -19,7 +19,7 @@ namespace CodingTracker
                     .AddChoices(new[]
                     {
                         "1. Close Application", "2. View Records", "3. Insert Records", "4. Delete Records", 
-                        "5. Update Records", "6. Filter Sessions", "7. Generate Reports"
+                        "5. Update Records", "6. Filter Sessions", "7. Track Progress"
                     }));
             
                 int opt = int.Parse(choice.Substring(0,1));
