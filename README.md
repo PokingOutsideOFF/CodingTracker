@@ -4,9 +4,9 @@ I have used following directives: <b>SpectreConsole</b><i> for beautifying the c
 
 # Project Structure:
 - Coding Tracker: Contains the <b>CodingController</b> class which is responsible for maintaning the flow of the program.
-- Coding Session: <li>Contains the <b>UserInput</b> class which is responsible for the taking the input of the user</li>
-                  <li>Contains the <b>CodeSession</b> Database Model class, which contains following attributes: id, startTime, endTime, codingGoal</li>
-- Coding Goal: <li>Contains the <b>CodingGoal Database</b> Model class, which contains following attributes: id, codingGoal, codingTask,   startDate, endDate</li>
+- Coding Session: Contains the <b>UserInput</b> class which is responsible for the taking the input of the user</li>
+                  <br>Contains the <b>CodeSession</b> Database Model class, which contains following attributes: id, startTime, endTime, codingGoal</li>
+- Coding Goal: Contains the <b>CodingGoal Database</b> Model class, which contains following attributes: id, codingGoal, codingTask, startDate, endDate
 - CodingTrackerDatabaseLibrary: Contains the <b>GoalsDatabase</b> and <b>SessionDatabase class</b> which performs database operations 
                                 using Dapper ORM for goals and session database.
 - App.exe.config: Stores connection strings for the Goals and Sessions database. 
