@@ -3,13 +3,13 @@ This console app provides CRUD operations to the Coding Session database and Cod
 I have used following directives: <b>SpectreConsole</b><i> for beautifying the console</i>, <b>Dapper</b><i>for database operations.</i>
 
 # Project Structure:
-- Coding Tracker: Contains the <b>CodingController</b> class which is responsible for maintaning the flow of the program.
-- Coding Session: Contains the <b>UserInput</b> class which is responsible for the taking the input of the user</li>
-                  <br>Contains the <b>CodeSession</b> Database Model class, which contains following attributes: id, startTime, endTime, codingGoal</li>
-- Coding Goal: Contains the <b>CodingGoal Database</b> Model class, which contains following attributes: id, codingGoal, codingTask, startDate, endDate
-- CodingTrackerDatabaseLibrary: Contains the <b>GoalsDatabase</b> and <b>SessionDatabase class</b> which performs database operations 
+- <u>Coding Tracker</u>: Contains the <b>CodingController</b> class which is responsible for maintaning the flow of the program.
+- <u>Coding Session</u>: Contains the <b>UserInput</b> class which is responsible for the taking the input of the user</li>
+                  Contains the <b>CodeSession</b> Database Model class, which contains following attributes: id, startTime, endTime, codingGoal</li>
+- <u>Coding Goal</u>: Contains the <b>CodingGoal Database</b> Model class, which contains following attributes: id, codingGoal, codingTask, startDate, endDate
+- <u>CodingTrackerDatabaseLibrary</u>: Contains the <b>GoalsDatabase</b> and <b>SessionDatabase class</b> which performs database operations 
                                 using Dapper ORM for goals and session database.
-- App.exe.config: Stores connection strings for the Goals and Sessions database. 
+- <u>App.exe.config</u>: Stores connection strings for the Goals and Sessions database. 
 
 # Workflow of Project:
 1. The CodingController class presents the user with a main menu providing options to interact with the databases. There are two databases: SessionDatabase (stores the user's coding session info) and GoalsDatabase (stores the user's coding goals and their expected completion dates).
